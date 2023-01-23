@@ -30,15 +30,19 @@ function App() {
   //Add Task
 
   //Delete Task
+  const deleteTask = (id) =>{
+    // console.log("delete task", id)
+    setTasks(tasks.filter(task => task.id !== id))
+  }
 
 
   return (
     <div className="container">
     <Header />
-    {/* {tasks.map((task) => (
-      <h3>Hello</h3>
-    ))} */}
-    <Tasks tasks={tasks}/>
+    <Tasks 
+    tasks={tasks}
+    deleteTask={deleteTask}
+    />
     </div>
   );
 }
