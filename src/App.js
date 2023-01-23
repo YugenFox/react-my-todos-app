@@ -1,48 +1,49 @@
-import { useState } from 'react';
-import './index.css'
-import Header from './components/Header'
-import Tasks from './components/Tasks';
-
+import { useState } from "react";
+import "./index.css";
+import Header from "./components/Header";
+import AddTasks from "./components/AddTasks";
+import Tasks from "./components/Tasks";
 
 function App() {
   //states
-  const [tasks,setTasks] = useState([
+  const [tasks, setTasks] = useState([
     {
       id: 1,
-      title: 'Wake up',
-      date: 'Jan 23rd',
+      title: "Wake up",
+      date: "Jan 23rd",
       reminder: true,
     },
     {
       id: 2,
-      title: 'Eat',
-      date: 'Jan 23rd',
+      title: "Eat",
+      date: "Jan 23rd",
       reminder: true,
     },
     {
       id: 3,
-      title: 'Code',
-      date: 'Jan 23rd',
+      title: "Code",
+      date: "Jan 23rd",
       reminder: false,
     },
-  ])
+  ]);
 
   //Add Task
 
   //Delete Task
-  const deleteTask = (id) =>{
+  const deleteTask = (id) => {
     // console.log("delete task", id)
-    setTasks(tasks.filter(task => task.id !== id))
-  }
-
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
 
   return (
     <div className="container">
-    <Header />
-    <Tasks 
-    tasks={tasks}
-    deleteTask={deleteTask}
-    />
+      <Header />
+      <AddTasks />
+      {tasks <= 0 ? (
+        <p style={{color: 'steelblue'}}>No more tasks left, maybe add some!</p>
+      ) : (
+        <Tasks tasks={tasks} deleteTask={deleteTask} />
+      )}
     </div>
   );
 }
