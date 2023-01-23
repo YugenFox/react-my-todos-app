@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './index.css'
 import Header from './components/Header'
+import Tasks from './components/Tasks';
 
 
 function App() {
@@ -26,10 +27,18 @@ function App() {
     },
   ])
 
+  //Add Task
+
+  //Delete Task
+
 
   return (
     <div className="container">
     <Header />
+    {/* {tasks.map((task) => (
+      <h3>Hello</h3>
+    ))} */}
+    <Tasks tasks={tasks}/>
     </div>
   );
 }
