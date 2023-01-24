@@ -27,15 +27,15 @@ function App() {
     },
   ]);
 
-  const [showAddTask,setShowAddTask] = useState(false)
+  const [showAddTask, setShowAddTask] = useState(false);
 
   //Add Task
   const addTask = (title, date, reminder) => {
     const rndNumber = Math.floor(Math.random() * 10000) + 1;
     const newTask = {
-      id: rndNumber ,
-      title: title ,
-      date: date ,
+      id: rndNumber,
+      title: title,
+      date: date,
       reminder: reminder,
     };
 
@@ -50,7 +50,7 @@ function App() {
 
   return (
     <div className="container">
-      <Header changeShowAddTask={()=> setShowAddTask(!showAddTask)}/>
+      <Header changeShowAddTask={() => setShowAddTask(!showAddTask)} />
       {showAddTask && <AddTasks addTask={addTask} />}
       {tasks <= 0 ? (
         <p style={{ color: "steelblue" }}>
