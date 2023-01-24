@@ -26,22 +26,42 @@ function App() {
   };
 
   //Add Task
-  const addTask = (title, date, reminder) => {
-    const rndNumber = Math.floor(Math.random() * 10000) + 1;
+  const addTask = async (title, date, reminder) => {
+    // const rndNumber = Math.floor(Math.random() * 10000) + 1;
     const newTask = {
-      id: rndNumber,
       title: title,
       date: date,
       reminder: reminder,
     };
 
-    setTasks([...tasks, newTask]);
+    //do POST request
+    const postTask = async () => {
+      await fetch("http://localhost:5000/tasks", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newTask)
+      });
+
+      const data = await fetchTasks()
+      setTasks(data)
+    };
+    postTask()
+
+    // setTasks([...tasks, newTask]);
+    
     console.log("addTask func", newTask);
   };
   //Delete Task
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: "DELETE",
+    });
+    const data = await fetchTasks();
+    setTasks(data);
     // console.log("delete task", id)
-    setTasks(tasks.filter((task) => task.id !== id));
+    // setTasks(tasks.filter((task) => task.id !== id));
   };
 
   return (
