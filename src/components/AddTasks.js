@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddTasks = () => {
+const AddTasks = ({ addTask }) => {
   const [formData, setFormData] = useState({
     title: "",
     date: "",
@@ -9,7 +9,9 @@ const AddTasks = () => {
 
   const handleInputChange = (event) => {
     // another way to do much of below
-      //const {name, value, type, checked} = event.target
+    //const {name, value, type, checked} = event.target
+    /*...prevFormData,
+      [name]: type === "checkbox" ? checked : value */
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -28,11 +30,20 @@ const AddTasks = () => {
       alert("Fill out the title to add a task");
       setFormData({
         ...formData,
-        title: ""
-      })
+        title: "",
+      });
       return;
     }
-    console.log("Trying to submit new task");
+
+    //addTask
+    addTask(formData.title, formData.date, formData.reminder);
+
+    //set form state data back to blank
+    setFormData({
+      title: "",
+      date: "",
+      reminder: false,
+    });
   };
 
   return (
@@ -62,6 +73,7 @@ const AddTasks = () => {
         <input
           type="checkbox"
           placeholder="boi add a task description!"
+          checked={formData.reminder}
           value={formData.reminder}
           onChange={handleInputChange}
           name="reminder"

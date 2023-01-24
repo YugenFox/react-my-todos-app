@@ -28,7 +28,18 @@ function App() {
   ]);
 
   //Add Task
+  const addTask = (title, date, reminder) => {
+    const rndNumber = Math.floor(Math.random() * 10000) + 1;
+    const newTask = {
+      id: rndNumber ,
+      title: title ,
+      date: date ,
+      reminder: reminder,
+    };
 
+    setTasks([...tasks, newTask]);
+    console.log("addTask func", newTask);
+  };
   //Delete Task
   const deleteTask = (id) => {
     // console.log("delete task", id)
@@ -38,9 +49,11 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <AddTasks />
+      <AddTasks addTask={addTask} />
       {tasks <= 0 ? (
-        <p style={{color: 'steelblue'}}>No more tasks left, maybe add some!</p>
+        <p style={{ color: "steelblue" }}>
+          No more tasks left, maybe add some!
+        </p>
       ) : (
         <Tasks tasks={tasks} deleteTask={deleteTask} />
       )}
