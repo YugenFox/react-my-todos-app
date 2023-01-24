@@ -8,6 +8,8 @@ const AddTasks = () => {
   });
 
   const handleInputChange = (event) => {
+    // another way to do much of below
+      //const {name, value, type, checked} = event.target
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -22,8 +24,12 @@ const AddTasks = () => {
     e.preventDefault();
 
     //check if they filled out title
-    if (formData.title === "".trim()) {
+    if (formData.title.trim() === "") {
       alert("Fill out the title to add a task");
+      setFormData({
+        ...formData,
+        title: ""
+      })
       return;
     }
     console.log("Trying to submit new task");
