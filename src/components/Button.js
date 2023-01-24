@@ -17,7 +17,7 @@ Button.defaultProps = {
   text: "Add Task",
   color: "steelblue",
   onAdd: () => {
-    console.log("Need to finish onAdd function");
+    console.log("Need to finish onAdd function in Button");
   },
 };
 

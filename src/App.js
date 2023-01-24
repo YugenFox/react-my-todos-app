@@ -27,6 +27,8 @@ function App() {
     },
   ]);
 
+  const [showAddTask,setShowAddTask] = useState(false)
+
   //Add Task
   const addTask = (title, date, reminder) => {
     const rndNumber = Math.floor(Math.random() * 10000) + 1;
@@ -48,8 +50,8 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
-      <AddTasks addTask={addTask} />
+      <Header changeShowAddTask={()=> setShowAddTask(!showAddTask)}/>
+      {showAddTask && <AddTasks addTask={addTask} />}
       {tasks <= 0 ? (
         <p style={{ color: "steelblue" }}>
           No more tasks left, maybe add some!
