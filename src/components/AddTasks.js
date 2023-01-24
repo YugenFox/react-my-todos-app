@@ -38,7 +38,7 @@ const AddTasks = ({ addTask }) => {
     //addTask
     addTask(formData.title, formData.date, formData.reminder);
 
-    //set form state data back to blank
+    //set form state data back to blank after addTask complete
     setFormData({
       title: "",
       date: "",
