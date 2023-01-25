@@ -102,7 +102,10 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <Header changeShowAddTask={() => setShowAddTask(!showAddTask)} />
+        <Header
+          changeShowAddTask={() => setShowAddTask(!showAddTask)}
+          showAddTask={showAddTask}
+        />
         <Routes>
           <Route
             path="/"
@@ -123,7 +126,7 @@ function App() {
               </>
             }
           />
-          <Route path="/about" element={<About />}/>
+          <Route path="/about" element={<About />} />
         </Routes>
         <Footer />
       </div>
@@ -132,39 +135,3 @@ function App() {
 }
 
 export default App;
-
-/*
-return (
-    <Router>
-      <div className="container">
-        <Header
-          onAdd={() => setShowAddTask(!showAddTask)}
-          showAdd={showAddTask}
-        />
-
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <>
-                {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? (
-                  <Tasks
-                    tasks={tasks}
-                    onDelete={deleteTask}
-                    onToggle={toggleReminder}
-                  />
-                ) : (
-                  "No tasks left"
-                )}
-              </>
-            }
-          />
-          <Route path='/about' element={<About />}/>
-        </Routes>
-        
-        <Footer />
-      </div>
-    </Router>
-  );
-*/
