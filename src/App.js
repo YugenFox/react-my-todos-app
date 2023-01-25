@@ -41,18 +41,20 @@ function App() {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(newTask)
+        body: JSON.stringify(newTask),
       });
 
-      const data = await fetchTasks()
-      setTasks(data)
+      //updates local state after post
+      const data = await fetchTasks();
+      setTasks(data);
     };
-    postTask()
+    postTask();
 
     // setTasks([...tasks, newTask]);
-    
+
     console.log("addTask func", newTask);
   };
+
   //Delete Task
   const deleteTask = async (id) => {
     await fetch(`http://localhost:5000/tasks/${id}`, {
@@ -64,6 +66,11 @@ function App() {
     // setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  //Toggle Reminder on Task - highlight if true
+  const toggleReminder = (id) => {
+    console.log("toggle reminder on", id)
+  }
+
   return (
     <div className="container">
       <Header changeShowAddTask={() => setShowAddTask(!showAddTask)} />
@@ -73,7 +80,7 @@ function App() {
           No more tasks left, maybe add some!
         </p>
       ) : (
-        <Tasks tasks={tasks} deleteTask={deleteTask} />
+        <Tasks tasks={tasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>
       )}
     </div>
   );

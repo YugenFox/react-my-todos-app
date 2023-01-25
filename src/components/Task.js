@@ -1,8 +1,11 @@
 import { TiDelete } from "react-icons/ti";
 
-const Task = ({ task, deleteTask }) => {
+const Task = ({ task, deleteTask, toggleReminder }) => {
   return (
-    <div className="task">
+    <div
+      className={`task ${task.reminder ? "reminder" : ""}`}
+      onDoubleClick={() => toggleReminder(task.id)}
+    >
       <h3>
         {task.title}
         <TiDelete
