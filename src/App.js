@@ -25,6 +25,14 @@ function App() {
     return data;
   };
 
+  //Fetch Task
+  const fetchTask = async (id) => {
+    const res = await fetch(`http://localhost:5000/tasks/${id}`);
+    const data = await res.json();
+
+    return data;
+  };
+
   //Add Task
   const addTask = async (title, date, reminder) => {
     // const rndNumber = Math.floor(Math.random() * 10000) + 1;
@@ -67,8 +75,23 @@ function App() {
   };
 
   //Toggle Reminder on Task - highlight if true
-  const toggleReminder = (id) => {
-    console.log("toggle reminder on", id)
+  const toggleReminder = async(id) => {
+    //
+    let updTask = await fetchTask(id)
+    updTask = {...updTask, reminder: !updTask.reminder}
+    //PUT upd reminder task
+    await fetch(`http://localhost:5000/tasks/${id}`,{
+      method: 'PUT',
+      headers: {
+        'Content-type': "application/json",
+      },
+      body: JSON.stringify(updTask)
+    })
+
+    //set state with new data
+    const data = await fetchTasks()
+    setTasks(data)
+    // console.log("toggle reminder on", id)
   }
 
   return (
