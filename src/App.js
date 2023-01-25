@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import About from "./components/About";
 import AddTasks from "./components/AddTasks";
 import Tasks from "./components/Tasks";
 
@@ -68,6 +71,8 @@ function App() {
     await fetch(`http://localhost:5000/tasks/${id}`, {
       method: "DELETE",
     });
+
+    //set state with new data
     const data = await fetchTasks();
     setTasks(data);
     // console.log("delete task", id)
@@ -75,38 +80,91 @@ function App() {
   };
 
   //Toggle Reminder on Task - highlight if true
-  const toggleReminder = async(id) => {
+  const toggleReminder = async (id) => {
     //
-    let updTask = await fetchTask(id)
-    updTask = {...updTask, reminder: !updTask.reminder}
+    let updTask = await fetchTask(id);
+    updTask = { ...updTask, reminder: !updTask.reminder };
     //PUT upd reminder task
-    await fetch(`http://localhost:5000/tasks/${id}`,{
-      method: 'PUT',
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: "PUT",
       headers: {
-        'Content-type': "application/json",
+        "Content-type": "application/json",
       },
-      body: JSON.stringify(updTask)
-    })
+      body: JSON.stringify(updTask),
+    });
 
     //set state with new data
-    const data = await fetchTasks()
-    setTasks(data)
+    const data = await fetchTasks();
+    setTasks(data);
     // console.log("toggle reminder on", id)
-  }
+  };
 
   return (
-    <div className="container">
-      <Header changeShowAddTask={() => setShowAddTask(!showAddTask)} />
-      {showAddTask && <AddTasks addTask={addTask} />}
-      {tasks <= 0 ? (
-        <p style={{ color: "steelblue" }}>
-          No more tasks left, maybe add some!
-        </p>
-      ) : (
-        <Tasks tasks={tasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>
-      )}
-    </div>
+    <Router>
+      <div className="container">
+        <Header changeShowAddTask={() => setShowAddTask(!showAddTask)} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                {showAddTask && <AddTasks addTask={addTask} />}
+                {tasks <= 0 ? (
+                  <p style={{ color: "steelblue" }}>
+                    No more tasks left, maybe add some!
+                  </p>
+                ) : (
+                  <Tasks
+                    tasks={tasks}
+                    deleteTask={deleteTask}
+                    toggleReminder={toggleReminder}
+                  />
+                )}
+              </>
+            }
+          />
+          <Route path="/about" element={<About />}/>
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
 export default App;
+
+/*
+return (
+    <Router>
+      <div className="container">
+        <Header
+          onAdd={() => setShowAddTask(!showAddTask)}
+          showAdd={showAddTask}
+        />
+
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                {showAddTask && <AddTask onAdd={addTask} />}
+                {tasks.length > 0 ? (
+                  <Tasks
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                  />
+                ) : (
+                  "No tasks left"
+                )}
+              </>
+            }
+          />
+          <Route path='/about' element={<About />}/>
+        </Routes>
+        
+        <Footer />
+      </div>
+    </Router>
+  );
+*/
